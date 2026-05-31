@@ -8,8 +8,8 @@ python-dotenv>=1.0.0
 #   groq                  # Groq
 #   ollama                # local Gemma
 # Stage 2 (audio + wake word):
-#   sounddevice           # chosen over pyaudio for Windows stability
-#   pvporcupine           # wake word
+#   sounddevice
+#   openwakeword          # replaced pvporcupine — fully local, no access key
 # Stage 3 (STT):
 #   vosk
 #   openai-whisper

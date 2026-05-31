@@ -16,6 +16,8 @@ env/
 models/
 *.bin
 *.gguf
+*.onnx
+*.tflite
 
 # Logs
 logs/

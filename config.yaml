@@ -60,10 +60,16 @@ cache:
 
 # ----- Audio -----
 audio:
-  library: "sounddevice"       # chosen over PyAudio for Windows stability
+  library: "sounddevice"
   sample_rate: 16000
   channels: 1
   block_duration_ms: 30
+  input_device: null
+  wake_word:
+    model: "hey_jarvis"        # openWakeWord pretrained model name
+    threshold: 0.5             # 0..1 — higher = stricter (fewer false triggers)
+    inference_framework: "onnx"  # Windows supports onnx, not tflite
+    trigger_cooldown_s: 2.0    # ignore re-triggers within this many seconds
 
 # ----- Logging -----
 logging:
