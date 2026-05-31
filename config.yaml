@@ -1,0 +1,72 @@
+# ============================================================
+# M.Assist - Configuration
+# All tunable settings live here. Nothing hardcoded in code.
+# ============================================================
+
+assistant:
+  name: "M.Assist"          # spoken/displayed name
+  wake_word: "jarvis"        # built-in Porcupine keyword for now
+
+# ----- LLM backend selection -----
+# backend: which path to use -> "local" | "gemini" | "groq"
+# The cloud path uses primary -> fallback on rate limit / error.
+llm:
+  backend: "local"           # start local for free, no-key dev
+  cloud_primary: "gemini"    # used when backend == "cloud-style" routing
+  cloud_fallback: "groq"
+
+  gemini:
+    model: "gemini-2.5-flash"
+    api_key_env: "GEMINI_API_KEY"   # name of env var, NOT the key itself
+    rate_limit:
+      requests_per_minute: 15
+      requests_per_day: 1500
+      tokens_per_minute: 1000000
+
+  groq:
+    model: "llama-3.3-70b-versatile"
+    api_key_env: "GROQ_API_KEY"
+    rate_limit:
+      requests_per_minute: 30
+      requests_per_day: 1000
+      tokens_per_minute: 6000
+
+  local:
+    provider: "ollama"
+    model: "gemma3:4b"        # fits 6GB VRAM (RTX 4050) comfortably
+    host: "http://localhost:11434"
+
+# ----- Speech-to-text (two-tier) -----
+stt:
+  primary: "vosk"
+  fallback: "whisper"
+  vosk_model_path: "models/vosk-model-small-en-us"
+  whisper_model: "base"      # base is a good speed/quality balance on CPU/GPU
+  fallback_triggers:
+    min_words: 2             # Vosk output under this -> consider fallback
+    rms_noise_threshold: 0.04  # high ambient noise -> prefer Whisper
+    router_confidence_floor: 0.45  # router unsure -> let Whisper re-transcribe
+
+# ----- Routing -----
+router:
+  embedding_model: "all-MiniLM-L6-v2"  # ~80MB, fast on CPU
+  local_intent_threshold: 0.55          # cosine sim to treat as a local command
+
+# ----- Semantic cache -----
+cache:
+  enabled: true
+  similarity_threshold: 0.90   # cosine sim to count as a cache hit
+  max_entries: 500
+
+# ----- Audio -----
+audio:
+  library: "sounddevice"       # chosen over PyAudio for Windows stability
+  sample_rate: 16000
+  channels: 1
+  block_duration_ms: 30
+
+# ----- Logging -----
+logging:
+  level: "INFO"                # DEBUG | INFO | WARNING | ERROR
+  file: "logs/m_assist.log"
+  console: true

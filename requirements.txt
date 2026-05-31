@@ -1,0 +1,17 @@
+# ---- Stage 0 (foundation) ----
+PyYAML>=6.0
+python-dotenv>=1.0.0
+
+# ---- Added in later stages (listed now for visibility) ----
+# Stage 1 (LLM client):
+#   google-genai          # Gemini
+#   groq                  # Groq
+#   ollama                # local Gemma
+# Stage 2 (audio + wake word):
+#   sounddevice           # chosen over pyaudio for Windows stability
+#   pvporcupine           # wake word
+# Stage 3 (STT):
+#   vosk
+#   openai-whisper
+# Stage 4 (router + cache):
+#   sentence-transformers
