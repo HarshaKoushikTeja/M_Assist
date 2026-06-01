@@ -125,7 +125,7 @@ python -m src.m_assist.llm_cli
 
 - [x] **Stage 0** — Project scaffold, config system, logging
 - [x] **Stage 1** — Multi-backend LLM client with failover & rate limiting
-- [ ] **Stage 2** — Audio capture + Porcupine wake word
+- [x] **Stage 2** — Audio capture + Porcupine wake word
 - [ ] **Stage 3** — Two-tier STT (Vosk + Whisper)
 - [ ] **Stage 4** — Hybrid router + semantic cache
 - [ ] **Stage 5** — Full assistant loop
