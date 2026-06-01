@@ -40,12 +40,19 @@ llm:
 stt:
   primary: "vosk"
   fallback: "whisper"
-  vosk_model_path: "models/vosk-model-small-en-us"
-  whisper_model: "base"      # base is a good speed/quality balance on CPU/GPU
+  vosk_model_path: "models/vosk-model-small-en-us-0.15"   # match your unzipped folder
+  whisper:
+    model: "small"
+    device: "cpu"          # was "auto" — avoids the CUDA DLL dependency
+    compute_type: "int8"
   fallback_triggers:
-    min_words: 2             # Vosk output under this -> consider fallback
-    rms_noise_threshold: 0.04  # high ambient noise -> prefer Whisper
-    router_confidence_floor: 0.45  # router unsure -> let Whisper re-transcribe
+    min_words: 2              # Vosk output under this -> try Whisper
+    rms_noise_threshold: 0.04 # high ambient noise during capture -> prefer Whisper
+  # recording (capturing the command after wake word)
+  record:
+    max_seconds: 8            # hard cap on command length
+    silence_rms: 0.015        # below this = "silence"
+    silence_duration_s: 1.0   # this much continuous silence = done speaking
 
 # ----- Routing -----
 router:

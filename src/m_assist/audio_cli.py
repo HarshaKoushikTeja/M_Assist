@@ -55,7 +55,7 @@ def main() -> None:
                 while True:
                     frame = mic.read_frame()
                     level = mic.rms_level(frame)
-                    bar = "#" * int(level * 60)
+                    bar = "#" * int(level * 600)
                     print(f"\r[{bar:<60}] {level:.3f}", end="", flush=True)
                     time.sleep(0.01)
             except KeyboardInterrupt:
