@@ -28,3 +28,6 @@ logs/
 Thumbs.db
 .vscode/
 .idea/
+
+# Conversation saves
+saved_conversations/

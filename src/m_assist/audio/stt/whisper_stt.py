@@ -40,7 +40,7 @@ class WhisperSTT:
         # faster-whisper wants float32 normalized to -1..1.
         audio_f32 = audio_int16.astype(np.float32) / 32768.0
         segments, info = self._model.transcribe(
-            audio_f32, beam_size=5, language="en"
+            audio_f32, beam_size=5, language="en", vad_filter=True
         )
         # segments is a generator; join the pieces.
         text = " ".join(seg.text.strip() for seg in segments).strip()

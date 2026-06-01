@@ -7,6 +7,18 @@ assistant:
   name: "M.Assist"          # spoken/displayed name
   wake_word: "jarvis"        # built-in Porcupine keyword for now
 
+# ----- Text-to-speech -----
+tts:
+  enabled: true
+  rate: 175          # words per minute (default ~200; 175 is calmer)
+  volume: 1.0        # 0.0 .. 1.0
+  voice_index: null  # null = system default; 0/1/... to pick a specific voice
+
+# ----- Response handling -----
+response:
+  speak_first_paragraph_only: true   # speak para 1, print the whole thing
+  post_speak_cooldown_s: 1.5     # settle time after speaking before re-listening
+
 # ----- LLM backend selection -----
 # backend: which path to use -> "local" | "gemini" | "groq"
 # The cloud path uses primary -> fallback on rate limit / error.
@@ -74,7 +86,7 @@ audio:
   input_device: null
   wake_word:
     model: "hey_jarvis"        # openWakeWord pretrained model name
-    threshold: 0.5             # 0..1 — higher = stricter (fewer false triggers)
+    threshold: 0.7             # 0..1 — higher = stricter (fewer false triggers)
     inference_framework: "onnx"  # Windows supports onnx, not tflite
     trigger_cooldown_s: 2.0    # ignore re-triggers within this many seconds
 
@@ -83,3 +95,13 @@ logging:
   level: "INFO"                # DEBUG | INFO | WARNING | ERROR
   file: "logs/m_assist.log"
   console: true
+
+# ----- Conversation saving -----
+conversation:
+  save_enabled: true                 # master switch
+  save_dir: "saved_conversations"    # where turn files land
+  save_phrases:                      # what the user can say to save the last turn
+    - "save that"
+    - "save this"
+    - "remember that"
+    - "save the answer"
