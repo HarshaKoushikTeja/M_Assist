@@ -22,19 +22,19 @@ testable milestone with its own smoke test. The commit history reflects this.
 
 ## ✨ Key Features
 
-| Feature | Description |
-|---|---|
-| **Local wake word** | "hey jarvis" detection via openWakeWord — fully local, no access key, runs offline |
-| **Two-tier STT** | Fast Vosk path with faster-whisper fallback triggered on low word-count or noisy audio |
-| **Multi-backend LLM** | Local (Ollama/Gemma 3), Gemini 2.5 Flash, and Groq behind one interface |
-| **Silent failover** | Cloud path steps down Gemini → Groq → local on rate limit or error |
-| **Proactive rate limiting** | Sliding-window limiter skips a backend *before* hitting a 429 |
-| **Offline TTS** | Spoken replies via pyttsx3 (system speech engine) — speaks short replies, prints long ones |
-| **On-demand saving** | Say *"save that"* to write the last Q&A to its own Markdown file |
-| **Config-driven** | Swap backends, models, and thresholds in `config.yaml` — no code changes |
-| **Embedding-based routing** *(planned)* | `all-MiniLM-L6-v2` to classify local commands vs LLM queries |
-| **Semantic caching** *(planned)* | Cosine-similarity cache to reuse answers to rephrased questions |
-| **Real-time streaming mode** *(planned)* | Streaming Vosk + VAD for a sub-500ms cloud fast path |
+| Feature                                          | Description                                                                                 |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| **Local wake word**                        | "hey jarvis" detection via openWakeWord — fully local, no access key, runs offline         |
+| **Two-tier STT**                           | Fast Vosk path with faster-whisper fallback triggered on low word-count or noisy audio      |
+| **Multi-backend LLM**                      | Local (Ollama/Gemma 3), Gemini 2.5 Flash, and Groq behind one interface                     |
+| **Silent failover**                        | Cloud path steps down Gemini → Groq → local on rate limit or error                        |
+| **Proactive rate limiting**                | Sliding-window limiter skips a backend*before* hitting a 429                              |
+| **Offline TTS**                            | Spoken replies via pyttsx3 (system speech engine) — speaks short replies, prints long ones |
+| **On-demand saving**                       | Say*"save that"* to write the last Q&A to its own Markdown file                           |
+| **Config-driven**                          | Swap backends, models, and thresholds in `config.yaml` — no code changes                 |
+| **Embedding-based routing** *(planned)*  | `all-MiniLM-L6-v2` to classify local commands vs LLM queries                              |
+| **Semantic caching** *(planned)*         | Cosine-similarity cache to reuse answers to rephrased questions                             |
+| **Real-time streaming mode** *(planned)* | Streaming Vosk + VAD for a sub-500ms cloud fast path                                        |
 
 ---
 
@@ -113,11 +113,13 @@ M_Assist/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Python 3.10+
 - [Ollama](https://ollama.com) (for local inference)
 - A [Vosk model](https://alphacephei.com/vosk/models) unzipped into `models/`
 
 ### Setup
+
 ```bash
 git clone https://github.com/HarshaKoushikTeja/M_Assist.git
 cd M_Assist
@@ -127,12 +129,14 @@ pip install -r requirements.txt
 ```
 
 ### Run the LLM in isolation (no mic, no keys)
+
 ```bash
 ollama pull gemma3:4b
 python -m src.m_assist.llm_cli
 ```
 
 ### Run the full voice assistant
+
 ```bash
 # Ensure Ollama is running and a Vosk model is in models/
 python -m src.m_assist.run
@@ -140,6 +144,7 @@ python -m src.m_assist.run
 ```
 
 ### Use cloud backends (optional)
+
 ```bash
 copy .env.example .env         # add your GEMINI_API_KEY and GROQ_API_KEY
 # in config.yaml, set:  llm.backend: "cloud"
@@ -150,12 +155,12 @@ python -m src.m_assist.run
 
 ## 🗺️ Roadmap
 
-- [x] **Stage 0** — Project scaffold, config system, logging
-- [x] **Stage 1** — Multi-backend LLM client with failover & rate limiting
-- [x] **Stage 2** — Audio capture + wake word (openWakeWord)
-- [x] **Stage 3** — Two-tier STT (Vosk fast path + faster-whisper fallback)
-- [x] **Stage 4** — Full voice loop (wake → STT → LLM → TTS) + on-demand saving
-- [ ] **Stage 5** — Hybrid router (rules + embedding-based intent classification) & semantic cache
+- [X] **Stage 0** — Project scaffold, config system, logging
+- [X] **Stage 1** — Multi-backend LLM client with failover & rate limiting
+- [X] **Stage 2** — Audio capture + wake word (openWakeWord)
+- [X] **Stage 3** — Two-tier STT (Vosk fast path + faster-whisper fallback)
+- [X] **Stage 4** — Full voice loop (wake → STT → LLM → TTS) + on-demand saving
+- [X] **Stage 5** — Hybrid router (rules + embedding intent classification) ✅ / semantic cache (planned)
 - [ ] **Stage 6** — Real-time mode: streaming Vosk + VAD + latency benchmarking
 
 ---
