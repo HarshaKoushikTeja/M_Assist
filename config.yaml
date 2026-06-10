@@ -69,7 +69,7 @@ stt:
 # ----- Routing -----
 router:
   embedding_model: "all-MiniLM-L6-v2"  # ~80MB, fast on CPU
-  local_intent_threshold: 0.55          # cosine sim to treat as a local command
+  local_intent_threshold: 0.35          # cosine sim to treat as a local command & used to be 0.55 — calibrated to this model's score range
 
 # ----- Semantic cache -----
 cache:
