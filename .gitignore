@@ -31,3 +31,6 @@ Thumbs.db
 
 # Conversation saves
 saved_conversations/
+
+# Test cache
+.pytest_cache/
